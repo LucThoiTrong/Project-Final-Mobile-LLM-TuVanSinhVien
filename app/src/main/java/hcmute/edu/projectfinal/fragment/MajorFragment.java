@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Objects;
 
-import hcmute.edu.projectfinal.HomeActivity;
 import hcmute.edu.projectfinal.R;
 
 public class MajorFragment extends Fragment {
@@ -90,23 +89,18 @@ public class MajorFragment extends Fragment {
 
         // Xử lý sự kiện cho nút Nhận tư vấn (mở giao diện chatbot)
         btnConsult.setOnClickListener(v -> {
-            ChatFragment chatFragment = new ChatFragment();
+            ChatTabFragment chatTabFragment = new ChatTabFragment();
 
-            // Tạo Bundle để truyền title sang ChatFragment
             Bundle bundle = new Bundle();
-            bundle.putString("major_title", title);
-            chatFragment.setArguments(bundle);
+            bundle.putString("major_title", title); // Truyền title
+            bundle.putInt("target_tab_index", 0);   // Truyền index tab 'Trò chuyện'
+            chatTabFragment.setArguments(bundle);
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, chatFragment)
+                    .replace(R.id.fragment_container, chatTabFragment)
                     .addToBackStack(null)
                     .commit();
-
-            // Cập nhật trạng thái focus của BottomNavigationView
-            if (requireActivity() instanceof HomeActivity) {
-                ((HomeActivity) requireActivity()).updateBottomNavigationFocus(R.id.nav_chat);
-            }
             dialog.dismiss();
         });
         dialog.show();

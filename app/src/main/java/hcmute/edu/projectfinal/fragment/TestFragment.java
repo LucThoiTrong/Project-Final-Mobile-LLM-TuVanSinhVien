@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.util.*;
 
-import hcmute.edu.projectfinal.HomeActivity;
 import hcmute.edu.projectfinal.R;
 import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.model.Question;
@@ -183,10 +182,6 @@ public class TestFragment extends Fragment {
                         .replace(R.id.fragment_container, chatFragment)
                         .addToBackStack(null)
                         .commit();
-
-                if (requireActivity() instanceof HomeActivity) {
-                    ((HomeActivity) requireActivity()).updateBottomNavigationFocus(R.id.nav_chat);
-                }
             });
         }
     }

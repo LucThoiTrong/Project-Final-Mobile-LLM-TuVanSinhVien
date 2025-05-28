@@ -16,6 +16,9 @@ import hcmute.edu.projectfinal.R;
 import hcmute.edu.projectfinal.adapter.ChatTabAdapter;
 
 public class ChatTabFragment extends Fragment {
+    private int targetTabIndex = 0;
+    private String majorTitle = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,14 +27,24 @@ public class ChatTabFragment extends Fragment {
 
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
-        ChatTabAdapter tabAdapter = new ChatTabAdapter(requireActivity());
 
+        // Nhận dữ liệu từ Bundle
+        if (getArguments() != null) {
+            targetTabIndex = getArguments().getInt("target_tab_index", 0);
+            majorTitle = getArguments().getString("major_title");
+        }
+
+        // Truyền dữ liệu vào adapter nếu cần
+        ChatTabAdapter tabAdapter = new ChatTabAdapter(requireActivity(), majorTitle);
         viewPager.setAdapter(tabAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             if (position == 0) tab.setText("Trò chuyện");
             else tab.setText("Lịch sử");
         }).attach();
+
+        // Chuyển đến tab mục tiêu
+        viewPager.setCurrentItem(targetTabIndex, false);
 
         return view;
     }
