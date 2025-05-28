@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_major"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Chuyên ngành" />
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="Trò chuyện" />
+    <item
+        android:id="@+id/nav_test"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Kiểm tra bản thân" />
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Tài khoản" />
+</menu>

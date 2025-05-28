@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/gradient_background"
+    android:gravity="center">
+
+    <!-- Logo or Image -->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/img_chatbot"
+        android:contentDescription="App Logo"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:elevation="8dp"/>
+
+    <!-- Main Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Back"
+        android:textSize="32sp"
+        android:textAllCaps="true"
+        android:textColor="@color/title_dark_blue"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:shadowColor="#66000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:layout_marginBottom="16dp"
+        android:elevation="6dp"/>
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hãy đăng nhập để bắt đầu tư vấn chọn ngành"
+        android:textSize="16sp"
+        android:textColor="@color/text_black"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="48dp"
+        android:elevation="4dp"/>
+
+    <!-- Google Sign-In Button -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign in with Google"
+        android:background="@drawable/button_background_gradient"
+        app:backgroundTint="@null"
+        android:textColor="@color/text_black"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:icon="@drawable/img_gg"
+        app:iconGravity="textStart"
+        app:iconTint="@null"
+        app:iconPadding="12dp"
+        android:layout_marginHorizontal="16dp"
+        android:elevation="6dp"
+        android:translationZ="6dp"/>
+
+    <!-- Spacer to push footer to bottom -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="2dp"
+        android:background="@color/title_dark_blue"
+        android:layout_gravity="center"
+        android:layout_marginVertical="12dp"
+        android:alpha="0.3"/>
+
+    <!-- Footer -->
+    <TextView
+        android:id="@+id/text_quote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="“Hành trình vạn dặm bắt đầu từ một bước chân.”"
+        android:textColor="@color/text_light_gray"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Được phát triển bởi Lục Thới Trọng và Bùi Đức Lộc"
+        android:textSize="14sp"
+        android:textColor="@color/title_dark_blue"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="italic"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"/>
+</LinearLayout>

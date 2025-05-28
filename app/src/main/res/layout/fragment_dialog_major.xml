@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/background_white">
+
+    <TextView
+        android:id="@+id/tv_major_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Công nghệ Phần mềm"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/title_dark_blue"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đào tạo các kỹ năng cần thiết để phát triển, thiết kế, kiểm thử và quản lý các sản phẩm phần mềm đáp ứng nhu cầu thực tiễn."
+        android:textSize="16sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Môn học tiêu biểu:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/title_dark_blue"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_subjects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nhập môn lập trình, Cấu trúc dữ liệu, Kỹ thuật phần mềm, Lập trình Web, Kiểm thử phần mềm"
+        android:textSize="14sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mức lương khởi điểm:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/title_dark_blue"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="12-25 triệu VNĐ/tháng"
+        android:textSize="14sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cơ hội nghề nghiệp:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/title_dark_blue"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_jobs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kỹ sư phần mềm, Lập trình viên Full-stack, Kỹ sư kiểm thử, Kiến trúc sư phần mềm"
+        android:textSize="14sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đóng"
+            android:textSize="14sp"
+            android:backgroundTint="@color/gray"
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btn_consult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhận tư vấn"
+            android:textSize="14sp"
+            android:backgroundTint="@color/primary_blue"
+            android:textColor="@color/white"
+            android:padding="8dp"/>
+    </LinearLayout>
+</LinearLayout>

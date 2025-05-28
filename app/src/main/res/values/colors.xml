@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_blue">#007BFF</color>
+    <color name="primary_gradient_start">#00B4FF</color>
+    <color name="primary_gradient_end">#66D9FF</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="border_gray">#E0E0E0</color>
+    <color name="title_dark_blue">#003E99</color>
+    <color name="text_black">#333333</color>
+    <color name="chat_bubble_blue">#F0F9FF</color>
+
+    <!-- Secondary và Accent Colors -->
+    <color name="secondary_blue">#005FCC</color>
+    <color name="accent_cyan">#00E0FF</color>
+    <color name="accent_orange">#FFA726</color>
+    <color name="accent_green">#4CAF50</color>
+    <color name="accent_red">#FF5252</color>
+
+    <!-- Soft Gradient Colors -->
+    <color name="gradient_soft_start">#E3F2FD</color>
+    <color name="gradient_soft_end">#BBDEFB</color>
+
+    <!-- Neutral Colors -->
+    <color name="background_light_gray">#F7F9FC</color>
+    <color name="text_light_gray">#888888</color>
+    <color name="divider_gray">#DADADA</color>
+
+    <!-- Button Hover / Pressed States -->
+    <color name="button_pressed_blue">#339CFF</color>
+    <color name="button_hover_blue">#66BFFF</color>
+
+    <!-- Shadow / Elevation Colors -->
+    <color name="shadow_light">#33000000</color>
+    <color name="shadow_medium">#55000000</color>
+
+    <color name="text_gray">#757575</color>
+    <color name="gray">#B0BEC5</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="nav_background_white">#FFFFFF</color>
+    <color name="nav_top_border_color">#E0E0E0</color>
+    <color name="nav_item_selected_blue">#2196F3</color>
+    <color name="nav_item_unselected_gray">#757575</color>
+    <color name="bottom_nav_ripple_color">#1F000000</color>
+    <color name="grey_unselected_color">#757575</color>
+
+    <color name="user_message_background">#E0E0E0</color>
+    <color name="user_message_text_color">#000000</color>
+    <color name="assistant_message_background">#1976D2</color>
+    <color name="assistant_message_text_color">#FFFFFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+</resources>
