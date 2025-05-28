@@ -42,4 +42,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("io.appwrite:sdk-for-android:6.0.0")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.12.0")
 }

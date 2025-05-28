@@ -52,7 +52,9 @@ public class AccountFragment extends Fragment {
     
                 @Override
                 public void onFailure(String error) {
-                    Toast.makeText(requireContext(),"Lỗi đăng nhập: " + error, Toast.LENGTH_SHORT).show();
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(requireContext(),"Lỗi đăng nhập: " + error, Toast.LENGTH_SHORT).show();
+                    });
                 }
             });
         } catch (AppwriteException e) {

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -19,8 +21,8 @@ import io.appwrite.enums.OAuthProvider;
 import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Account;
 import io.appwrite.services.Functions;
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
-
 
 public class AppWriteService {
     private static AppWriteService instance;
@@ -44,10 +46,14 @@ public class AppWriteService {
                 .setProject(PROJECT_ID)
                 .setSelfSigned(true);
 
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
         client.setHttp$library_release(new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
+                .cookieJar(new JavaNetCookieJar(cookieManager))
                 .build());
 
         functions = new Functions(client);
@@ -92,7 +98,6 @@ public class AppWriteService {
                     Log.d("Appwrite", result.toString());
                 }
             }
-
         }));
     }
 

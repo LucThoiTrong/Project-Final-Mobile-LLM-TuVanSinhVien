@@ -13,7 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import hcmute.edu.projectfinal.fragment.AccountFragment;
 import hcmute.edu.projectfinal.fragment.ChatFragment;
+import hcmute.edu.projectfinal.fragment.ChatTabFragment;
 import hcmute.edu.projectfinal.fragment.MajorFragment;
+import hcmute.edu.projectfinal.fragment.TestFragment;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -38,7 +40,9 @@ public class HomeActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.nav_account) {
                 selectedFragment = new AccountFragment();
             } else if (item.getItemId() == R.id.nav_chat) {
-                selectedFragment = new ChatFragment();
+                selectedFragment = new ChatTabFragment();
+            } else if (item.getItemId() == R.id.nav_test) {
+                selectedFragment = new TestFragment();
             }
 
             // Replace the fragment in the container
