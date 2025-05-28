@@ -102,6 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNextQuestion"
         android:layout_width="match_parent"
@@ -116,5 +117,21 @@
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:textSize="16sp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRequestConsultation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Nhận tư vấn ngay"
+        android:textColor="@color/background_white"
+        app:backgroundTint="@color/primary_blue"
+        app:cornerRadius="8dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

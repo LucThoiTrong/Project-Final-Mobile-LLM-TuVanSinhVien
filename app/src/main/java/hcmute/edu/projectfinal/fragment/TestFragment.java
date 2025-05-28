@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.util.*;
 
+import hcmute.edu.projectfinal.HomeActivity;
 import hcmute.edu.projectfinal.R;
 import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.model.Question;
@@ -24,6 +25,7 @@ public class TestFragment extends Fragment {
     private RadioGroup rgOptions;
     private RadioButton rbOption1, rbOption2, rbOption3, rbOption4;
     private Button btnNextQuestion;
+    private Button btnRequestConsultation; // Nút mới cho tư vấn
 
     private List<Question> questions;
     private int currentQuestionIndex = 0;
@@ -73,8 +75,12 @@ public class TestFragment extends Fragment {
         rbOption3 = questionView.findViewById(R.id.rbOption3);
         rbOption4 = questionView.findViewById(R.id.rbOption4);
         btnNextQuestion = questionView.findViewById(R.id.btnNextQuestion);
+        btnRequestConsultation = questionView.findViewById(R.id.btnRequestConsultation);
 
         btnNextQuestion.setOnClickListener(v -> handleNextClick());
+        if (btnRequestConsultation != null) {
+            btnRequestConsultation.setVisibility(View.GONE);
+        }
         fragmentContainer.removeAllViews();
         fragmentContainer.addView(questionView);
     }
@@ -102,7 +108,7 @@ public class TestFragment extends Fragment {
         if (selectedIndex >= 0 && selectedIndex < specializations.length) {
             String spec = specializations[selectedIndex];
             //noinspection DataFlowIssue
-            specializationScores.put(spec, specializationScores.get(spec) + 1);
+            specializationScores.put(spec, specializationScores.getOrDefault(spec, 0) + 1);
         }
 
         if (++currentQuestionIndex < questions.size()) {
@@ -126,41 +132,103 @@ public class TestFragment extends Fragment {
         rgOptions.clearCheck();
 
         btnNextQuestion.setText(currentQuestionIndex == questions.size() - 1 ? "Hoàn thành" : "Câu tiếp theo");
+        if (btnRequestConsultation != null) {
+            btnRequestConsultation.setVisibility(View.GONE);
+        }
+    }
+
+    private String buildResultMessageString(List<String> topSpecs) {
+        StringBuilder messageBuilder = new StringBuilder("Bài test hoàn thành!\n");
+        if (topSpecs.isEmpty()) {
+            messageBuilder.append("Không có đủ thông tin để đưa ra gợi ý. Bạn hãy thử làm lại bài test nhé!");
+        } else if (topSpecs.size() == 1) {
+            messageBuilder.append("Chuyên ngành phù hợp nhất có thể là:\n- ").append(topSpecs.get(0))
+                    .append("\n\nHãy tìm hiểu thêm thông tin chi tiết về chuyên ngành này nhé!");
+        } else {
+            messageBuilder.append("Bạn phù hợp với nhiều chuyên ngành:\n");
+            for (String spec : topSpecs) {
+                messageBuilder.append("- ").append(spec).append("\n");
+            }
+            messageBuilder.append("\nBạn có thể tìm hiểu thêm để đưa ra quyết định cuối cùng.");
+        }
+        return messageBuilder.toString();
     }
 
     @SuppressLint("SetTextI18n")
     private void showResult() {
-        StringBuilder resultMessage = new StringBuilder("Bài test hoàn thành!\n");
+        final List<String> topSpecs = getTopSpecializations();
+        String resultMessageString = buildResultMessageString(topSpecs);
 
-        List<String> topSpecs = getTopSpecializations();
-        if (topSpecs.isEmpty()) {
-            resultMessage.append("Không có đủ thông tin để đưa ra gợi ý. Bạn hãy thử làm lại bài test nhé!");
-        } else if (topSpecs.size() == 1) {
-            resultMessage.append("Chuyên ngành phù hợp nhất có thể là:\n- ").append(topSpecs.get(0))
-                    .append("\n\nHãy tìm hiểu thêm thông tin chi tiết về chuyên ngành này nhé!");
-        } else {
-            resultMessage.append("Bạn phù hợp với nhiều chuyên ngành:\n");
-            for (String spec : topSpecs) {
-                resultMessage.append("- ").append(spec).append("\n");
-            }
-            resultMessage.append("\nBạn có thể tìm hiểu thêm để đưa ra quyết định cuối cùng.");
-        }
-
-        tvQuestionText.setText(resultMessage.toString());
+        tvQuestionText.setText(resultMessageString);
         tvQuestionNumber.setVisibility(View.GONE);
         rgOptions.setVisibility(View.GONE);
+
         btnNextQuestion.setText("Làm lại Test");
         btnNextQuestion.setVisibility(View.VISIBLE);
         btnNextQuestion.setOnClickListener(v -> showIntroductionScreen());
+
+        if (btnRequestConsultation != null) {
+            btnRequestConsultation.setText("Nhận tư vấn ngay");
+            btnRequestConsultation.setVisibility(View.VISIBLE);
+            btnRequestConsultation.setOnClickListener(v -> {
+                ChatFragment chatFragment = new ChatFragment();
+                Bundle bundle = new Bundle();
+                String majorTitleForChat = getString(topSpecs);
+
+                bundle.putString("major_title", majorTitleForChat);
+                chatFragment.setArguments(bundle);
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, chatFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+                if (requireActivity() instanceof HomeActivity) {
+                    ((HomeActivity) requireActivity()).updateBottomNavigationFocus(R.id.nav_chat);
+                }
+            });
+        }
+    }
+
+    private static String getString(List<String> topSpecs) {
+        String majorTitleForChat;
+
+        if (topSpecs.isEmpty()) {
+            // Trường hợp không có chuyên ngành nào nổi bật, hoặc muốn một tiêu đề chung
+            majorTitleForChat = "Tư vấn chung về chuyên ngành";
+        } else if (topSpecs.size() == 1) {
+            // Một chuyên ngành phù hợp nhất
+            majorTitleForChat = topSpecs.get(0);
+        } else {
+            // Nhiều chuyên ngành phù hợp, nối chúng lại
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < topSpecs.size(); i++) {
+                sb.append(topSpecs.get(i));
+                if (i < topSpecs.size() - 1) {
+                    sb.append(", "); // Phân tách bằng dấu phẩy và khoảng trắng
+                }
+            }
+            majorTitleForChat = sb.toString();
+        }
+        return majorTitleForChat;
     }
 
     private List<String> getTopSpecializations() {
-        int max = Collections.max(specializationScores.values());
-        if (max == 0) return Collections.emptyList();
+        int maxScore = 0;
+        // Kiểm tra xem specializationScores có rỗng không trước khi tìm max
+        if (!specializationScores.isEmpty()) {
+            Collection<Integer> scores = specializationScores.values();
+            if (!scores.isEmpty()) { // Đảm bảo collection scores không rỗng
+                maxScore = Collections.max(scores);
+            }
+        }
+
+        if (maxScore == 0) return Collections.emptyList();
 
         List<String> top = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : specializationScores.entrySet()) {
-            if (entry.getValue() == max) {
+            if (entry.getValue() == maxScore) {
                 top.add(entry.getKey());
             }
         }

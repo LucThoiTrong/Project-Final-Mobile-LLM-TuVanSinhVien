@@ -91,6 +91,12 @@ public class MajorFragment extends Fragment {
         // Xử lý sự kiện cho nút Nhận tư vấn (mở giao diện chatbot)
         btnConsult.setOnClickListener(v -> {
             ChatFragment chatFragment = new ChatFragment();
+
+            // Tạo Bundle để truyền title sang ChatFragment
+            Bundle bundle = new Bundle();
+            bundle.putString("major_title", title);
+            chatFragment.setArguments(bundle);
+
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, chatFragment)
@@ -103,7 +109,6 @@ public class MajorFragment extends Fragment {
             }
             dialog.dismiss();
         });
-
         dialog.show();
     }
 }

@@ -57,39 +57,50 @@ public class ChatFragment extends Fragment {
         sendButton.setOnClickListener(v -> {
             String messageContent = messageEditText.getText().toString().trim();
             if (!messageContent.isEmpty()) {
-                // Tạo tin nhắn người dùng
-                Message userMessage = new Message();
-                userMessage.setContent(messageContent);
-                userMessage.setRole("user");
-
-                // Thêm vào danh sách tin nhắn và cập nhật UI
-                ChatData.messages.add(userMessage);
-                messageAdapter.notifyItemInserted(ChatData.messages.size() - 1);
-                chatRecyclerView.scrollToPosition(ChatData.messages.size() - 1);
-
-                // Thêm vào JSON để gửi
-                JSONObject jsonMessage = new JSONObject();
-                try {
-                    jsonMessage.put("role", "user");
-                    jsonMessage.put("content", messageContent);
-                    ChatData.messagesJSONToSend.put(jsonMessage);
-                } catch (JSONException e) {
-                    Log.e("JSON", "JSONException: " + e.getMessage());
-                }
-
-                // Gọi API Azure OpenAI
-                try {
-                    callAzureOpenAI();
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+                handleUserMessage(messageContent);
                 // Xóa nội dung EditText
                 messageEditText.setText("");
             } else {
                 Toast.makeText(getContext(), "Vui lòng nhập tin nhắn", Toast.LENGTH_SHORT).show();
             }
         });
+
+//      Lấy dữ liệu đóng gói từ Bundle
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String majorTitle = bundle.getString("major_title");
+            handleUserMessage("Hãy tư vấn cho tui chuyên ngành " + majorTitle);
+        }
         return view;
+    }
+
+    private void handleUserMessage(String messageContent) {
+        // Tạo tin nhắn người dùng
+        Message userMessage = new Message();
+        userMessage.setContent(messageContent);
+        userMessage.setRole("user");
+
+        // Thêm vào danh sách tin nhắn và cập nhật UI
+        ChatData.messages.add(userMessage);
+        messageAdapter.notifyItemInserted(ChatData.messages.size() - 1);
+        chatRecyclerView.scrollToPosition(ChatData.messages.size() - 1);
+
+        // Thêm vào JSON để gửi
+        JSONObject jsonMessage = new JSONObject();
+        try {
+            jsonMessage.put("role", "user");
+            jsonMessage.put("content", messageContent);
+            ChatData.messagesJSONToSend.put(jsonMessage);
+        } catch (JSONException e) {
+            Log.e("JSON", "JSONException: " + e.getMessage());
+        }
+
+        // Gọi API Azure OpenAI
+        try {
+            callAzureOpenAI();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void callAzureOpenAI() throws JSONException {
