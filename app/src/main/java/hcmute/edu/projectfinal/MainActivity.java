@@ -32,15 +32,10 @@ public class MainActivity extends AppCompatActivity {
             // Thực hiện đăng nhập bằng Google
             appWriteService.createSession(MainActivity.this, new AppWriteService.AppWriteCallback() {
                 @Override
-                public void onSuccess() {
+                public void onSuccess(Object result) {
                     runOnUiThread(() -> Toast.makeText(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show());
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                     finish();
-                }
-
-                @Override
-                public void onSuccess(Object result) {
-
                 }
 
                 @Override

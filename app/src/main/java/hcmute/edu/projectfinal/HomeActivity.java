@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import hcmute.edu.projectfinal.fragment.AccountFragment;
-import hcmute.edu.projectfinal.fragment.ChatFragment;
 import hcmute.edu.projectfinal.fragment.ChatTabFragment;
 import hcmute.edu.projectfinal.fragment.MajorFragment;
 import hcmute.edu.projectfinal.fragment.TestFragment;

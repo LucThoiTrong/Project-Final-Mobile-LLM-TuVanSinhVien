@@ -38,9 +38,6 @@ public class AccountFragment extends Fragment {
         try {
             appWriteService.getAccount(new AppWriteService.AppWriteCallback() {
                 @Override
-                public void onSuccess() {}
-    
-                @Override
                 public void onSuccess(Object result) {
                     if (result instanceof User) {
                         requireActivity().runOnUiThread(() -> {
@@ -52,9 +49,7 @@ public class AccountFragment extends Fragment {
     
                 @Override
                 public void onFailure(String error) {
-                    requireActivity().runOnUiThread(() -> {
-                        Toast.makeText(requireContext(),"Lỗi đăng nhập: " + error, Toast.LENGTH_SHORT).show();
-                    });
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(),"Lỗi đăng nhập: " + error, Toast.LENGTH_SHORT).show());
                 }
             });
         } catch (AppwriteException e) {
@@ -66,19 +61,13 @@ public class AccountFragment extends Fragment {
             // TODO: Thêm logic đăng xuất (ví dụ: gọi account.deleteSession())
             Log.d("Logout", "Nút đăng xuất được nhấn");
             appWriteService.logOut(new AppWriteService.AppWriteCallback() {
-
                 @Override
-                public void onSuccess() {
+                public void onSuccess(Object result) {
                     requireActivity().runOnUiThread(() -> {
                         Toast.makeText(requireContext(), "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
                         requireActivity().startActivity(new Intent(requireContext(), MainActivity.class));
                         requireActivity().finish();
                     });
-                }
-
-                @Override
-                public void onSuccess(Object result) {
-
                 }
 
                 @Override

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,37 +35,29 @@ public class MajorFragment extends Fragment {
         CardView cardInformationSystems = view.findViewById(R.id.card_information_systems);
 
         // Thiết lập sự kiện click cho các CardView
-        cardSoftwareEngineering.setOnClickListener(v -> {
-            showMajorDialog("Công nghệ Phần mềm",
-                    "Đào tạo các kỹ năng cần thiết để phát triển, thiết kế, kiểm thử và quản lý các sản phẩm phần mềm đáp ứng nhu cầu thực tiễn.",
-                    "Nhập môn lập trình, Cấu trúc dữ liệu, Kỹ thuật phần mềm, Lập trình Web, Kiểm thử phần mềm",
-                    "12-25 triệu VNĐ/tháng",
-                    "Kỹ sư phần mềm, Lập trình viên Full-stack, Kỹ sư kiểm thử, Kiến trúc sư phần mềm");
-        });
+        cardSoftwareEngineering.setOnClickListener(v -> showMajorDialog("Công nghệ Phần mềm",
+                "Đào tạo các kỹ năng cần thiết để phát triển, thiết kế, kiểm thử và quản lý các sản phẩm phần mềm đáp ứng nhu cầu thực tiễn.",
+                "Nhập môn lập trình, Cấu trúc dữ liệu, Kỹ thuật phần mềm, Lập trình Web, Kiểm thử phần mềm",
+                "12-25 triệu VNĐ/tháng",
+                "Kỹ sư phần mềm, Lập trình viên Full-stack, Kỹ sư kiểm thử, Kiến trúc sư phần mềm"));
 
-        cardArtificialIntelligence.setOnClickListener(v -> {
-            showMajorDialog("Trí tuệ Nhân tạo (AI)",
-                    "Đào tạo kiến thức và kỹ năng để phát triển các hệ thống thông minh, ứng dụng học máy, xử lý ngôn ngữ tự nhiên và thị giác máy tính.",
-                    "Học máy, Học sâu, Xử lý ngôn ngữ tự nhiên, Thị giác máy tính, Khoa học dữ liệu",
-                    "15-30 triệu VNĐ/tháng",
-                    "Kỹ sư AI, Nhà khoa học dữ liệu, Kỹ sư NLP, Kỹ sư thị giác máy tính");
-        });
+        cardArtificialIntelligence.setOnClickListener(v -> showMajorDialog("Trí tuệ Nhân tạo (AI)",
+                "Đào tạo kiến thức và kỹ năng để phát triển các hệ thống thông minh, ứng dụng học máy, xử lý ngôn ngữ tự nhiên và thị giác máy tính.",
+                "Học máy, Học sâu, Xử lý ngôn ngữ tự nhiên, Thị giác máy tính, Khoa học dữ liệu",
+                "15-30 triệu VNĐ/tháng",
+                "Kỹ sư AI, Nhà khoa học dữ liệu, Kỹ sư NLP, Kỹ sư thị giác máy tính"));
 
-        cardNetworkSecurity.setOnClickListener(v -> {
-            showMajorDialog("Mạng Máy tính và An ninh mạng",
-                    "Đào tạo kiến thức và kỹ năng về thiết kế, xây dựng, vận hành, quản trị và bảo mật các hệ thống mạng máy tính.",
-                    "Nhập môn Mạng máy tính, Giao thức TCP/IP, An ninh mạng, Mật mã học, Phòng chống tấn công mạng",
-                    "12-22 triệu VNĐ/tháng",
-                    "Kỹ sư mạng, Chuyên viên an ninh mạng, Kỹ sư bảo mật, Chuyên gia kiểm thử xâm nhập");
-        });
+        cardNetworkSecurity.setOnClickListener(v -> showMajorDialog("Mạng Máy tính và An ninh mạng",
+                "Đào tạo kiến thức và kỹ năng về thiết kế, xây dựng, vận hành, quản trị và bảo mật các hệ thống mạng máy tính.",
+                "Nhập môn Mạng máy tính, Giao thức TCP/IP, An ninh mạng, Mật mã học, Phòng chống tấn công mạng",
+                "12-22 triệu VNĐ/tháng",
+                "Kỹ sư mạng, Chuyên viên an ninh mạng, Kỹ sư bảo mật, Chuyên gia kiểm thử xâm nhập"));
 
-        cardInformationSystems.setOnClickListener(v -> {
-            showMajorDialog("Hệ thống Thông tin",
-                    "Tập trung vào việc phân tích, thiết kế, phát triển, vận hành và quản lý các hệ thống thông tin để hỗ trợ doanh nghiệp.",
-                    "Phân tích hệ thống, Cơ sở dữ liệu, ERP, Thương mại điện tử, Kinh doanh thông minh",
-                    "10-20 triệu VNĐ/tháng",
-                    "Chuyên viên phân tích nghiệp vụ, Quản trị cơ sở dữ liệu, Quản lý dự án IT, Chuyên viên BI");
-        });
+        cardInformationSystems.setOnClickListener(v -> showMajorDialog("Hệ thống Thông tin",
+                "Tập trung vào việc phân tích, thiết kế, phát triển, vận hành và quản lý các hệ thống thông tin để hỗ trợ doanh nghiệp.",
+                "Phân tích hệ thống, Cơ sở dữ liệu, ERP, Thương mại điện tử, Kinh doanh thông minh",
+                "10-20 triệu VNĐ/tháng",
+                "Chuyên viên phân tích nghiệp vụ, Quản trị cơ sở dữ liệu, Quản lý dự án IT, Chuyên viên BI"));
 
         return view;
     }

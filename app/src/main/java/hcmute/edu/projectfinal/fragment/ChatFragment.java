@@ -96,9 +96,6 @@ public class ChatFragment extends Fragment {
     private void callAzureOpenAI() throws JSONException {
         appWriteService.callAzureOpenAI(new AppWriteService.AppWriteCallback() {
             @Override
-            public void onSuccess() {}
-
-            @Override
             public void onSuccess(Object result) {
                 if (result instanceof String) {
                     try {

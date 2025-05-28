@@ -32,7 +32,6 @@ public class AppWriteService {
 
     // Tạo 1 interface để thực hiện kết quả success hay fail
     public interface AppWriteCallback {
-        void onSuccess();
         void onSuccess(Object result);
         void onFailure(String error);
     }
@@ -79,8 +78,8 @@ public class AppWriteService {
                     } else {
                         if(result != null) {
                             Log.d(AppWrite, result.toString());
+                            callback.onSuccess(result);
                         }
-                        callback.onSuccess();
                     }
                 })
         );
@@ -110,8 +109,8 @@ public class AppWriteService {
             } else {
                 if (result != null) {
                     Log.d(AppWrite, result.toString());
+                    callback.onSuccess(result);
                 }
-                callback.onSuccess();
                 Log.d(AppWrite, "Đăng xuất thành công");
             }
         }));
