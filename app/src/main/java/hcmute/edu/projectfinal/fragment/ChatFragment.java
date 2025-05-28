@@ -25,7 +25,6 @@ import hcmute.edu.projectfinal.model.Message;
 import hcmute.edu.projectfinal.service.AppWriteService;
 
 public class ChatFragment extends Fragment {
-
     private RecyclerView chatRecyclerView;
     private EditText messageEditText;
     private MessageAdapter messageAdapter;
@@ -104,9 +103,11 @@ public class ChatFragment extends Fragment {
                         // Lấy nội dung phản hồi của trợ lý ảo
                         String assistantReply = jsonResponse.getString("response"); // Giả sử key là "response" như trong ví dụ của bạn
 
+                        String cleanedReply = normalizeReply(assistantReply);
+
                         // Tạo tin nhắn của trợ lý ảo
                         Message assistantMessage = new Message();
-                        assistantMessage.setContent(assistantReply);
+                        assistantMessage.setContent(cleanedReply);
                         assistantMessage.setRole("assistant");
 
                         // Thêm vào danh sách tin nhắn và cập nhật UI
@@ -120,7 +121,7 @@ public class ChatFragment extends Fragment {
                                 JSONObject jsonAssistantMessage = new JSONObject();
                                 try {
                                     jsonAssistantMessage.put("role", "assistant");
-                                    jsonAssistantMessage.put("content", assistantReply);
+                                    jsonAssistantMessage.put("content", cleanedReply);
                                     ChatData.messagesJSONToSend.put(jsonAssistantMessage);
                                 } catch (JSONException e) {
                                     Log.e("JSON", "JSONException while adding assistant message: " + e.getMessage());
@@ -140,8 +141,18 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onFailure(String error) {
-
+                requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Lỗi: " + error, Toast.LENGTH_SHORT).show());
             }
         });
+    }
+
+    private String normalizeReply(String assistantReply) {
+        return assistantReply
+                .replaceAll("\\*\\*", "")
+                .replaceAll("###", "")
+                .replaceAll("\\\\/", "/")
+                .replaceAll("^Raw:.*", "")
+                .replaceAll("\\{\"role\".*", "")
+                .trim();
     }
 }
