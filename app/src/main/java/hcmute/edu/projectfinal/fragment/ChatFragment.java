@@ -107,7 +107,7 @@ public class ChatFragment extends Fragment {
                         // Tạo tin nhắn của trợ lý ảo
                         Message assistantMessage = new Message();
                         assistantMessage.setContent(assistantReply);
-                        assistantMessage.setRole("assistant"); // Hoặc "bot", "system" tùy theo cách bạn định nghĩa
+                        assistantMessage.setRole("assistant");
 
                         // Thêm vào danh sách tin nhắn và cập nhật UI
                         // Đảm bảo rằng việc cập nhật UI được thực hiện trên Main Thread
