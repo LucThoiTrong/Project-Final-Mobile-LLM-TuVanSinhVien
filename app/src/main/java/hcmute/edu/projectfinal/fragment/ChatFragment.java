@@ -36,7 +36,7 @@ public class ChatFragment extends Fragment {
     // Cho hiệu ứng typing indicator
     private Handler typingAnimationHandler;
     private Runnable typingAnimationRunnable;
-    private Message currentTypingMessage; // Tham chiếu đến tin nhắn "đang gõ..." hiện tại
+    private Message currentTypingMessage;
     private boolean isTypingAnimationRunning = false;
     private static final String BASE_TYPING_MESSAGE = "Đang phản hồi";
     private static final int TYPING_ANIMATION_INTERVAL = 600; // milliseconds

@@ -40,8 +40,13 @@ public class ChatTabFragment extends Fragment {
         viewPager.setAdapter(tabAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            if (position == 0) tab.setText("Trò chuyện");
-            else tab.setText("Lịch sử");
+            if (position == 0) {
+                tab.setText("Trò chuyện");
+                tab.setIcon(R.drawable.ic_chat);
+            } else {
+                tab.setText("Lịch sử");
+                tab.setIcon(R.drawable.ic_history);
+            }
         }).attach();
 
         // Chuyển đến tab mục tiêu

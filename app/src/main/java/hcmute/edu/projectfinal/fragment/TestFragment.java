@@ -1,6 +1,7 @@
 package hcmute.edu.projectfinal.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color; // Import Color
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,15 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.github.mikephil.charting.charts.PieChart; // Import PieChart
+import com.github.mikephil.charting.components.Legend; // Import Legend for styling
+import com.github.mikephil.charting.data.PieData; // Import PieData
+import com.github.mikephil.charting.data.PieDataSet; // Import PieDataSet
+import com.github.mikephil.charting.data.PieEntry; // Import PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter; // Import PercentFormatter
+import com.github.mikephil.charting.utils.ColorTemplate; // Import ColorTemplate
+
 import java.util.*;
 
 import hcmute.edu.projectfinal.HomeActivity;
@@ -20,12 +30,12 @@ public class TestFragment extends Fragment {
 
     private ViewGroup fragmentContainer;
     private View introductionView;
-
     private TextView tvQuestionNumber, tvQuestionText;
     private RadioGroup rgOptions;
     private RadioButton rbOption1, rbOption2, rbOption3, rbOption4;
     private Button btnNextQuestion;
-    private Button btnRequestConsultation; // Nút mới cho tư vấn
+    private Button btnRequestConsultation;
+    private PieChart pieChartResult; // Declare PieChart
 
     private List<Question> questions;
     private int currentQuestionIndex = 0;
@@ -43,7 +53,7 @@ public class TestFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentContainer = (ViewGroup) inflater.inflate(R.layout.fragment_test_question, container, false);
+        fragmentContainer = (ViewGroup) inflater.inflate(R.layout.fragment_test_question, container, false); // Inflate the default layout first
         introductionView = inflater.inflate(R.layout.fragment_test_introduction, fragmentContainer, false);
         showIntroductionScreen();
         return fragmentContainer;
@@ -58,7 +68,7 @@ public class TestFragment extends Fragment {
     }
 
     private void startTest() {
-        inflateQuestionView();
+        inflateQuestionView(); // This will inflate the question layout and find the PieChart
         resetTestState();
         showQuestion();
     }
@@ -76,10 +86,14 @@ public class TestFragment extends Fragment {
         rbOption4 = questionView.findViewById(R.id.rbOption4);
         btnNextQuestion = questionView.findViewById(R.id.btnNextQuestion);
         btnRequestConsultation = questionView.findViewById(R.id.btnRequestConsultation);
+        pieChartResult = questionView.findViewById(R.id.pieChartResult); // Initialize PieChart
 
         btnNextQuestion.setOnClickListener(v -> handleNextClick());
         if (btnRequestConsultation != null) {
             btnRequestConsultation.setVisibility(View.GONE);
+        }
+        if (pieChartResult != null) { // Hide pie chart initially
+            pieChartResult.setVisibility(View.GONE);
         }
         fragmentContainer.removeAllViews();
         fragmentContainer.addView(questionView);
@@ -92,6 +106,15 @@ public class TestFragment extends Fragment {
         specializationScores.clear();
         for (String spec : specializations) {
             specializationScores.put(spec, 0);
+        }
+        if (pieChartResult != null) {
+            pieChartResult.setVisibility(View.GONE); // Ensure chart is hidden on reset
+        }
+        if (tvQuestionNumber != null) {
+            tvQuestionNumber.setVisibility(View.VISIBLE);
+        }
+        if (rgOptions != null) {
+            rgOptions.setVisibility(View.VISIBLE);
         }
     }
 
@@ -123,6 +146,8 @@ public class TestFragment extends Fragment {
         Question q = questions.get(currentQuestionIndex);
         tvQuestionNumber.setText(String.format("Câu hỏi %d/%d", currentQuestionIndex + 1, questions.size()));
         tvQuestionText.setText(q.getQuestionText());
+        tvQuestionNumber.setVisibility(View.VISIBLE);
+        rgOptions.setVisibility(View.VISIBLE);
 
         List<String> opts = q.getOptions();
         rbOption1.setText(opts.get(0));
@@ -134,6 +159,9 @@ public class TestFragment extends Fragment {
         btnNextQuestion.setText(currentQuestionIndex == questions.size() - 1 ? "Hoàn thành" : "Câu tiếp theo");
         if (btnRequestConsultation != null) {
             btnRequestConsultation.setVisibility(View.GONE);
+        }
+        if (pieChartResult != null) { // Ensure pie chart is hidden during questions
+            pieChartResult.setVisibility(View.GONE);
         }
     }
 
@@ -163,6 +191,14 @@ public class TestFragment extends Fragment {
         tvQuestionNumber.setVisibility(View.GONE);
         rgOptions.setVisibility(View.GONE);
 
+        // Setup and display PieChart
+        setupPieChart();
+        loadPieChartData();
+        if (pieChartResult != null) {
+            pieChartResult.setVisibility(View.VISIBLE);
+        }
+
+
         btnNextQuestion.setText("Làm lại Test");
         btnNextQuestion.setVisibility(View.VISIBLE);
         btnNextQuestion.setOnClickListener(v -> showIntroductionScreen());
@@ -173,7 +209,6 @@ public class TestFragment extends Fragment {
             btnRequestConsultation.setOnClickListener(v -> {
                 ChatFragment chatFragment = new ChatFragment();
 
-                // Cập nhật trạng thái focus của BottomNavigationView
                 if (requireActivity() instanceof HomeActivity) {
                     ((HomeActivity) requireActivity()).updateBottomNavigationFocus(R.id.nav_chat);
                 }
@@ -193,22 +228,93 @@ public class TestFragment extends Fragment {
         }
     }
 
+    private void setupPieChart() {
+        if (pieChartResult == null) return;
+
+        pieChartResult.setDrawHoleEnabled(true); // Draw a hole in the middle
+        pieChartResult.setUsePercentValues(true); //
+        // pieChartResult.setEntryLabelTextSize(12f); // Tắt dòng này hoặc setDrawEntryLabels(false)
+        pieChartResult.setDrawEntryLabels(false); // KHÔNG hiển thị tên chuyên ngành trên lát cắt
+        // pieChartResult.setEntryLabelColor(Color.BLACK); // Không cần nếu không vẽ entry label
+
+        pieChartResult.setCenterText("Chuyên ngành"); //
+        pieChartResult.setCenterTextSize(18f); //
+        pieChartResult.getDescription().setEnabled(false); //
+
+        Legend l = pieChartResult.getLegend(); //
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Đưa xuống dưới
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Căn giữa theo chiều ngang
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hướng ngang cho các mục chú thích
+        l.setDrawInside(false); // Vẽ bên ngoài biểu đồ
+        l.setWordWrapEnabled(true); // Cho phép tự xuống dòng nếu tên chú thích dài
+        l.setEnabled(true); //
+    }
+
+    private void loadPieChartData() {
+        if (pieChartResult == null) return;
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        boolean hasData = false;
+        for (String specialization : specializations) {
+            //noinspection DataFlowIssue
+            int score = specializationScores.getOrDefault(specialization, 0);
+            if (score > 0) {
+                // Tên chuyên ngành (specialization) vẫn được dùng cho Legend
+                entries.add(new PieEntry(score, specialization)); //
+                hasData = true;
+            }
+        }
+
+        if (!hasData) {
+            pieChartResult.setVisibility(View.GONE);
+            return;
+        }
+
+        PieData data = getPieData(entries); //
+
+        pieChartResult.setData(data); //
+        pieChartResult.invalidate(); // Refresh the chart
+        pieChartResult.animateY(1400); // Add a little animation
+    }
+
+    @NonNull
+    private PieData getPieData(ArrayList<PieEntry> entries) {
+        ArrayList<Integer> colors = new ArrayList<>();
+        for (int color : ColorTemplate.MATERIAL_COLORS) { //
+            colors.add(color);
+        }
+        for (int color : ColorTemplate.VORDIPLOM_COLORS) { //
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, ""); // Label for the dataset (can be empty)
+        dataSet.setColors(colors); //
+
+        // Quan trọng: Chỉ hiển thị giá trị (%), không hiển thị label trên slice
+        dataSet.setDrawValues(true); // Hiển thị giá trị (phần trăm)
+        // dataSet.setDrawEntryLabels(false); // Đã set ở setupPieChart chung cho cả chart
+
+        PieData data = new PieData(dataSet); //
+        data.setValueFormatter(new PercentFormatter(pieChartResult)); // Show percentage on slices
+        data.setValueTextSize(12f); //
+        data.setValueTextColor(Color.BLACK); //
+        return data;
+    }
+
+
     private static String getString(List<String> topSpecs) {
         String majorTitleForChat;
 
         if (topSpecs.isEmpty()) {
-            // Trường hợp không có chuyên ngành nào nổi bật, hoặc muốn một tiêu đề chung
             majorTitleForChat = "Tư vấn chung về chuyên ngành";
         } else if (topSpecs.size() == 1) {
-            // Một chuyên ngành phù hợp nhất
             majorTitleForChat = topSpecs.get(0);
         } else {
-            // Nhiều chuyên ngành phù hợp, nối chúng lại
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < topSpecs.size(); i++) {
                 sb.append(topSpecs.get(i));
                 if (i < topSpecs.size() - 1) {
-                    sb.append(", "); // Phân tách bằng dấu phẩy và khoảng trắng
+                    sb.append(", ");
                 }
             }
             majorTitleForChat = sb.toString();
@@ -218,10 +324,9 @@ public class TestFragment extends Fragment {
 
     private List<String> getTopSpecializations() {
         int maxScore = 0;
-        // Kiểm tra xem specializationScores có rỗng không trước khi tìm max
         if (!specializationScores.isEmpty()) {
             Collection<Integer> scores = specializationScores.values();
-            if (!scores.isEmpty()) { // Đảm bảo collection scores không rỗng
+            if (!scores.isEmpty()) {
                 maxScore = Collections.max(scores);
             }
         }

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Đào tạo các kỹ năng cần thiết để phát triển, thiết kế, kiểm thử và quản lý các sản phẩm phần mềm đáp ứng nhu cầu thực tiễn."
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/text_gray"
         android:layout_marginBottom="16dp"/>
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Môn học tiêu biểu:"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/title_dark_blue"
         android:layout_marginBottom="8dp"/>
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nhập môn lập trình, Cấu trúc dữ liệu, Kỹ thuật phần mềm, Lập trình Web, Kiểm thử phần mềm"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textColor="@color/text_gray"
         android:layout_marginBottom="16dp"/>
 
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mức lương khởi điểm:"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/title_dark_blue"
         android:layout_marginBottom="8dp"/>
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="12-25 triệu VNĐ/tháng"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textColor="@color/text_gray"
         android:layout_marginBottom="16dp"/>
 
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cơ hội nghề nghiệp:"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/title_dark_blue"
         android:layout_marginBottom="8dp"/>
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Kỹ sư phần mềm, Lập trình viên Full-stack, Kỹ sư kiểm thử, Kiến trúc sư phần mềm"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textColor="@color/text_gray"
         android:layout_marginBottom="16dp"/>
 

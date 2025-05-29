@@ -43,4 +43,6 @@ dependencies {
 
     implementation("io.appwrite:sdk-for-android:7.0.1")
     implementation("com.squareup.okhttp3:okhttp-urlconnection:4.12.0")
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:text="Xây dựng và phát triển ứng dụng phần mềm"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 android:textColor="@color/text_black"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp" />
@@ -126,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text="Nghiên cứu và phát triển AI thông minh"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 android:textColor="@color/text_black"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp" />
@@ -181,6 +183,7 @@
                 android:layout_height="wrap_content"
                 android:text="Bảo mật và quản lý mạng"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 android:textColor="@color/text_black"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp" />
@@ -236,6 +239,7 @@
                 android:layout_height="wrap_content"
                 android:text="Quản lý và tích hợp thông tin"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 android:textColor="@color/text_black"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp" />
