@@ -337,11 +337,7 @@ public class AppWriteService {
     public void deleteConversationBySessionId(String sessionId, Runnable runnable) throws AppwriteException {
         // Kiểm tra trường hợp xoá là xoá ngay cuộc trò chuyện đang chat
         if(sessionId.equals(sharedPreferenceService.get("sessionId"))) {
-            // Khởi tạo lại dữ liệu cuộc hội thoại
-            messages.clear();
-            messagesJSONToSend = new JSONArray();
-            // Tạo mới session ID
-            sharedPreferenceService.put("sessionId", ID.Companion.unique(20));
+            refeshConversation();
         }
 
         databases.listDocuments(
@@ -386,6 +382,14 @@ public class AppWriteService {
                     }
                 })
         );
+    }
+
+    public void refeshConversation() {
+        // Khởi tạo lại dữ liệu cuộc hội thoại
+        messages.clear();
+        messagesJSONToSend = new JSONArray();
+        // Tạo mới session ID
+        sharedPreferenceService.put("sessionId", ID.Companion.unique(20));
     }
 
 }

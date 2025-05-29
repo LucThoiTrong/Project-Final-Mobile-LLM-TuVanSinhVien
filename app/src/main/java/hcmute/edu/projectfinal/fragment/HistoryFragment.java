@@ -15,11 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-
 import hcmute.edu.projectfinal.R;
 import hcmute.edu.projectfinal.adapter.HistoryAdapter;
-import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.service.AppWriteService;
 import io.appwrite.exceptions.AppwriteException;
 
@@ -80,6 +77,7 @@ public class HistoryFragment extends Fragment {
                         () -> {
                             try {
                                 getChatHistory();
+                                runChatHistory();
                             } catch (AppwriteException e) {
                                 throw new RuntimeException(e);
                             }
@@ -94,9 +92,7 @@ public class HistoryFragment extends Fragment {
     }
 
     private void startNewChat() {
-        ChatData.messages.clear();
-        ChatData.messagesJSONToSend = new JSONArray();
-
+        appWriteService.refeshConversation();
         runChatHistory();
     }
 
