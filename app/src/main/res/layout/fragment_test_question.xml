@@ -15,6 +15,15 @@
         android:gravity="center_horizontal"
         tools:context=".fragment.TestFragment">
 
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="343dp"
+            android:layout_height="359dp"
+            android:layout_gravity="center"
+            android:contentDescription="App Logo"
+            android:elevation="8dp"
+            android:src="@drawable/img_question" />
+
         <TextView
             android:id="@+id/tvQuestionNumber"
             android:layout_width="wrap_content"
@@ -22,7 +31,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/title_dark_blue"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="20dp"
             tools:text="Câu hỏi 1/12" />
 
         <androidx.cardview.widget.CardView

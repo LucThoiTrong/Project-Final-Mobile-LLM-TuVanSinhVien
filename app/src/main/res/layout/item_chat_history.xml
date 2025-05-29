@@ -1,49 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="6dp"
-    android:layout_marginHorizontal="4dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:strokeColor="#BBDEFB"
-    app:strokeWidth="1dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:cardMaxElevation="12dp"
+    app:strokeColor="@android:color/transparent"
     android:clickable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:rippleColor="#80D81B5E">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/gradient_background">
 
-        <TextView
-            android:id="@+id/txtChatTitle"
+        <!-- Icon đại diện đoạn chat -->
+        <ImageView
+            android:id="@+id/chatIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Chat Icon"
+            app:tint="#6200EA"
+            android:src="@drawable/forum_24px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Nội dung chính -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tiêu đề đoạn chat"
-            android:textSize="16sp"
-            android:textColor="#212121"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="8dp" />
+            android:layout_weight="1">
 
+            <!-- Tiêu đề chat -->
+            <TextView
+                android:id="@+id/txtChatTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tiêu đề đoạn chat"
+                android:textSize="18sp"
+                android:textColor="#212121"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:fontFamily="monospace"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Nút xóa -->
         <ImageView
             android:id="@+id/btnDelete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@android:drawable/ic_delete"
             android:contentDescription="Xóa"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txtChatTitle"
-            app:layout_constraintBottom_toBottomOf="@+id/txtChatTitle"
-            app:tint="#2196F3" />
+            android:scaleType="centerInside"
+            app:tint="#D81B60"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:transitionName="delete_button" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

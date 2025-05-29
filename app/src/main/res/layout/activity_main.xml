@@ -11,13 +11,13 @@
 
     <!-- Logo or Image -->
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/img_chatbot"
-        android:contentDescription="App Logo"
+        android:layout_width="294dp"
+        android:layout_height="352dp"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:elevation="8dp"/>
+        android:contentDescription="App Logo"
+        android:elevation="8dp"
+        android:src="@drawable/img_chatbot" />
 
     <!-- Main Title -->
     <TextView
@@ -67,16 +67,10 @@
         android:elevation="6dp"
         android:translationZ="6dp"/>
 
-    <!-- Spacer to push footer to bottom -->
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-
     <View
         android:layout_width="100dp"
         android:layout_height="2dp"
+        android:layout_margin="20dp"
         android:background="@color/title_dark_blue"
         android:layout_gravity="center"
         android:layout_marginVertical="12dp"

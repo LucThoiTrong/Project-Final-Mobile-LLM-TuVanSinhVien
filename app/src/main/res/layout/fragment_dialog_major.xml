@@ -6,6 +6,18 @@
     android:padding="16dp"
     android:background="@color/background_white">
 
+    <!-- Logo or Image -->
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="328dp"
+        android:layout_height="299dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="App Logo"
+        android:elevation="8dp"
+        android:src="@drawable/img_cnpm" />
+
     <TextView
         android:id="@+id/tv_major_title"
         android:layout_width="match_parent"
