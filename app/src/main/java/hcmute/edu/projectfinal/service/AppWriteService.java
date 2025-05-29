@@ -1,12 +1,15 @@
 package hcmute.edu.projectfinal.service;
 
 import static hcmute.edu.projectfinal.model.ChatData.chatHistory;
+import static hcmute.edu.projectfinal.model.ChatData.messages;
+import static hcmute.edu.projectfinal.model.ChatData.messagesJSONToSend;
 
 import android.content.Context;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,8 +22,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.model.ChatHistory;
+import hcmute.edu.projectfinal.model.Message;
 import io.appwrite.Client;
 import io.appwrite.ID;
 import io.appwrite.Query;
@@ -171,7 +174,7 @@ public class AppWriteService {
     public void callAzureOpenAI(AppWriteCallback callback) {
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("messages", ChatData.messagesJSONToSend);
+            jsonBody.put("messages", messagesJSONToSend);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -280,7 +283,56 @@ public class AppWriteService {
 
 
     // Lấy chi tiết lịch sử của 1 lần trò chuyện
-    public void getDetailChatHistory(String sessionId) {
+    public void getDetailChatHistory(String sessionId, Runnable runnable) throws AppwriteException {
+        databases.listDocuments(
+                "683796d0002a4e950d37", // databaseId
+                "68379e6400202e59e779", // collectionId
+                List.of(Query.Companion.equal("sessionId", sessionId)),
+                new CoroutineCallback<>((result, error) -> {
+                    if (error != null) {
+                        Log.e("Appwrite", Objects.requireNonNull(error.getMessage()));
+                        return;
+                    }
 
+                    if (result != null && !result.getDocuments().isEmpty()) {
+                        // Xoá dữ liệu cuộc trò chuyện hiện tại
+                        messages.clear();
+                        messagesJSONToSend = new JSONArray();
+
+                        // Đồng thời set up lại phiên làm việc trong sharedPreference
+                        sharedPreferenceService.put("sessionId", sessionId);
+
+                        // Tiến hành add lại dữ liệu mới
+                        result.getDocuments().forEach(doc -> {
+                            String role = Objects.requireNonNull(doc.getData().get("role")).toString();
+                            String content = Objects.requireNonNull(doc.getData().get("content")).toString();
+
+                            Log.d("ChiTiet", role + ": " + content);
+
+                            // add các message show lên UI
+                            Message message = new Message(content, role);
+                            messages.add(message);
+
+                            // add các message để gửi cho Appwrite Function
+                            JSONObject jsonMessage = new JSONObject();
+                            try {
+                                jsonMessage.put("role", role);
+                                jsonMessage.put("content", content);
+                                messagesJSONToSend.put(jsonMessage);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+
+                        // Gọi lại runnable để cập nhật UI
+                        if (runnable != null) {
+                            runnable.run();
+                        }
+                    }
+                })
+        );
     }
+
+    // Thực hiện xoá 1 lịch sử trò chuyện
+
 }

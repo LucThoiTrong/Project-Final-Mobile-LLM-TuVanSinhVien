@@ -65,8 +65,18 @@ public class HistoryFragment extends Fragment {
 
     private void setupRecyclerView() {
         recyclerChatHistory.setLayoutManager(new LinearLayoutManager(getContext()));
-        chatAdapter = new HistoryAdapter(chatHistory, (v1, position) -> {
-            // TODO: Xử lý sự kiện khi item được click
+        chatAdapter = new HistoryAdapter(chatHistory, new HistoryAdapter.OnClickListener() {
+            // Sự kiện xem chi tiết history
+            @Override
+            public void onItemClick(View v, int position) throws AppwriteException {
+                appWriteService.getDetailChatHistory(chatHistory.get(position).getSessionId(), () -> runChatHistory());
+            }
+
+            // Sự kiện xoá 1 history
+            @Override
+            public void onDeleteClick(View v, int position) {
+
+            }
         });
         recyclerChatHistory.setAdapter(chatAdapter);
     }
@@ -76,10 +86,14 @@ public class HistoryFragment extends Fragment {
     }
 
     private void startNewChat() {
-        ChatTabFragment chatTabFragment = new ChatTabFragment();
-
         ChatData.messages.clear();
         ChatData.messagesJSONToSend = new JSONArray();
+
+        runChatHistory();
+    }
+
+    private void runChatHistory() {
+        ChatTabFragment chatTabFragment = new ChatTabFragment();
 
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
