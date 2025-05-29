@@ -22,7 +22,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ChatView
     // Interface để xử lý sự kiện click
     public interface OnClickListener {
         void onItemClick(View v, int position) throws AppwriteException;
-        void onDeleteClick(View v, int position);
+        void onDeleteClick(View v, int position) throws AppwriteException;
     }
 
     private final OnClickListener listener;
@@ -61,7 +61,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ChatView
         // Sự kiện click nút xoá
         holder.btnDelete.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onDeleteClick(v, position);
+                try {
+                    listener.onDeleteClick(v, position);
+                } catch (AppwriteException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

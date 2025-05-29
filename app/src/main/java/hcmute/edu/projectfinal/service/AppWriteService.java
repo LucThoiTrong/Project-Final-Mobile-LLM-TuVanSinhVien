@@ -334,5 +334,47 @@ public class AppWriteService {
     }
 
     // Thực hiện xoá 1 lịch sử trò chuyện
+    public void deleteConversationBySessionId(String sessionId, Runnable runnable) throws AppwriteException {
+        databases.listDocuments(
+                "683796d0002a4e950d37", // databaseId
+                "68379e6400202e59e779", // collectionId
+                List.of(Query.Companion.equal("sessionId", sessionId)),
+                new CoroutineCallback<>((result, error) -> {
+                    if (error != null) {
+                        Log.e("Appwrite", "Lỗi khi truy vấn session: " + error.getMessage());
+                        return;
+                    }
+
+                    if (result != null && !result.getDocuments().isEmpty()) {
+                        List<Document<Map<String, Object>>> documents = result.getDocuments();
+                        int total = documents.size();
+                        int[] counter = {0};
+
+                        documents.stream().map(Document::getId).forEach(documentId -> databases.deleteDocument(
+                                "683796d0002a4e950d37", // databaseId
+                                "68379e6400202e59e779", // collectionId
+                                documentId,
+                                new CoroutineCallback<>((deleteResult, deleteError) -> {
+                                    synchronized (counter) {
+                                        counter[0]++;
+                                        if (deleteError != null) {
+                                            Log.e("Appwrite", "Lỗi xoá document: " + deleteError.getMessage());
+                                        } else {
+                                            Log.d("Appwrite", "Đã xoá document: " + documentId);
+                                        }
+
+                                        // Gọi runnable khi đã xoá hết
+                                        if (counter[0] == total && runnable != null) {
+                                            runnable.run();
+                                        }
+                                    }
+                                })
+                        ));
+                    } else {
+                        Log.d("Appwrite", "Không tìm thấy document nào với sessionId: " + sessionId);
+                    }
+                })
+        );
+    }
 
 }

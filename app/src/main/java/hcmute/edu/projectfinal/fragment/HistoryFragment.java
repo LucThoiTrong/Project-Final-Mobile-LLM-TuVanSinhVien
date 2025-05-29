@@ -73,9 +73,17 @@ public class HistoryFragment extends Fragment {
             }
 
             // Sự kiện xoá 1 history
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onDeleteClick(View v, int position) {
-
+            public void onDeleteClick(View v, int position) throws AppwriteException {
+                appWriteService.deleteConversationBySessionId(chatHistory.get(position).getSessionId(),
+                        () -> {
+                            try {
+                                getChatHistory();
+                            } catch (AppwriteException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
             }
         });
         recyclerChatHistory.setAdapter(chatAdapter);
