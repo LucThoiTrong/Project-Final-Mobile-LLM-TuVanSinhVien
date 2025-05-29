@@ -12,7 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:rippleColor="#80D81B5E">
+    app:rippleColor="@color/primary_blue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,8 +27,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="Chat Icon"
-            app:tint="#6200EA"
-            android:src="@drawable/forum_24px"
+            app:tint="#ED2905"
+            android:src="@drawable/ic_message"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="12dp" />
 
@@ -48,7 +48,6 @@
                 android:textColor="#212121"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:fontFamily="monospace"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="8dp" />

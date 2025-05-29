@@ -35,6 +35,7 @@ public class TestFragment extends Fragment {
     private RadioButton rbOption1, rbOption2, rbOption3, rbOption4;
     private Button btnNextQuestion;
     private Button btnRequestConsultation;
+    private ImageView imgLogo;
     private PieChart pieChartResult; // Declare PieChart
 
     private List<Question> questions;
@@ -86,6 +87,7 @@ public class TestFragment extends Fragment {
         rbOption4 = questionView.findViewById(R.id.rbOption4);
         btnNextQuestion = questionView.findViewById(R.id.btnNextQuestion);
         btnRequestConsultation = questionView.findViewById(R.id.btnRequestConsultation);
+        imgLogo = questionView.findViewById(R.id.img_logo);
         pieChartResult = questionView.findViewById(R.id.pieChartResult); // Initialize PieChart
 
         btnNextQuestion.setOnClickListener(v -> handleNextClick());
@@ -108,7 +110,10 @@ public class TestFragment extends Fragment {
             specializationScores.put(spec, 0);
         }
         if (pieChartResult != null) {
-            pieChartResult.setVisibility(View.GONE); // Ensure chart is hidden on reset
+            pieChartResult.setVisibility(View.GONE);
+        }
+        if (imgLogo != null) {
+            imgLogo.setVisibility(View.VISIBLE);
         }
         if (tvQuestionNumber != null) {
             tvQuestionNumber.setVisibility(View.VISIBLE);
@@ -190,6 +195,7 @@ public class TestFragment extends Fragment {
         tvQuestionText.setText(resultMessageString);
         tvQuestionNumber.setVisibility(View.GONE);
         rgOptions.setVisibility(View.GONE);
+        imgLogo.setVisibility(View.GONE);
 
         // Setup and display PieChart
         setupPieChart();
