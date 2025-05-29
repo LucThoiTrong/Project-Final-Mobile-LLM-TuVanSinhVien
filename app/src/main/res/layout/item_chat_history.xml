@@ -49,24 +49,22 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnDelete"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="8dp" />
 
+            <!-- Nút xóa -->
+            <ImageView
+                android:id="@+id/btnDelete"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_delete"
+                android:contentDescription="Xóa"
+                android:scaleType="centerInside"
+                app:tint="#D81B60"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:transitionName="delete_button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- Nút xóa -->
-        <ImageView
-            android:id="@+id/btnDelete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_delete"
-            android:contentDescription="Xóa"
-            android:scaleType="centerInside"
-            app:tint="#D81B60"
-            android:layout_gravity="center_vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:transitionName="delete_button" />
-
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
