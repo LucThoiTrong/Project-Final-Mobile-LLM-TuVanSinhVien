@@ -6,8 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChatData {
-    public static final List<Message> messages = new ArrayList<>(); //
-    public static final JSONArray messagesJSONToSend = new JSONArray(); //
+    public static List<Message> messages; // dùng để hiển thị câu hỏi và câu trả lời
+    public static JSONArray messagesJSONToSend; // dùng để gửi dữ liệu lên appwrite function (gồm câu hỏi và câu trả lời)
+    public static List<ChatHistory> chatHistory;
     public static final List<Question> specializationQuestions = new ArrayList<>();
 
     static {

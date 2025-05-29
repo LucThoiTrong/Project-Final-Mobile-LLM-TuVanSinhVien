@@ -51,8 +51,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             super(itemView);
             messageTextView = itemView.findViewById(R.id.messageTextView);
             messageIcon = itemView.findViewById(R.id.messageIcon);
-            constraintLayout = (ConstraintLayout) itemView; // Không cần cast nếu itemView đã là ConstraintLayout
-            // hoặc layout gốc của item_message là ConstraintLayout
+            constraintLayout = (ConstraintLayout) itemView;
         }
 
         void bind(Message message) {

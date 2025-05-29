@@ -11,6 +11,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
+import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.service.AppWriteService;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
             appWriteService.createSession(MainActivity.this, new AppWriteService.AppWriteCallback() {
                 @Override
                 public void onSuccess(Object result) {
+                    // Khởi tạo các mảng lưu trữ
+                    ChatData.messagesJSONToSend = new JSONArray();
+                    ChatData.messages = new ArrayList<>();
+                    ChatData.chatHistory = new ArrayList<>();
+
                     runOnUiThread(() -> Toast.makeText(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show());
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                     finish();

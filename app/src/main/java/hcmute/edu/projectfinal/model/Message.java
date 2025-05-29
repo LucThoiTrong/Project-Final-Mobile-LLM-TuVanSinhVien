@@ -7,7 +7,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(String role, String content) {
+    public Message(String content, String role) {
         this.role = role;
         this.content = content;
     }

@@ -23,6 +23,7 @@ import hcmute.edu.projectfinal.adapter.MessageAdapter;
 import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.model.Message;
 import hcmute.edu.projectfinal.service.AppWriteService;
+import io.appwrite.exceptions.AppwriteException;
 
 public class ChatFragment extends Fragment {
     private RecyclerView chatRecyclerView;
@@ -57,7 +58,11 @@ public class ChatFragment extends Fragment {
         sendButton.setOnClickListener(v -> {
             String messageContent = messageEditText.getText().toString().trim();
             if (!messageContent.isEmpty()) {
-                handleUserMessage(messageContent);
+                try {
+                    handleUserMessage(messageContent);
+                } catch (AppwriteException e) {
+                    throw new RuntimeException(e);
+                }
                 // Xóa nội dung EditText
                 messageEditText.setText("");
             } else {
@@ -69,19 +74,25 @@ public class ChatFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             String majorTitle = bundle.getString("major_title");
-            handleUserMessage("Hãy tư vấn cho tui chuyên ngành " + majorTitle);
+            try {
+                handleUserMessage("Hãy tư vấn cho tui chuyên ngành " + majorTitle);
+            } catch (AppwriteException e) {
+                throw new RuntimeException(e);
+            }
         }
         return view;
     }
 
-    private void handleUserMessage(String messageContent) {
+    private void handleUserMessage(String messageContent) throws AppwriteException {
         // Tạo tin nhắn người dùng
-        Message userMessage = new Message();
-        userMessage.setContent(messageContent);
-        userMessage.setRole("user");
+        Message userMessage = new Message(messageContent, "user");
 
         // Thêm vào danh sách tin nhắn và cập nhật UI
         ChatData.messages.add(userMessage);
+
+        // Lưu lên DB Appwrite
+        appWriteService.createDocument("user", messageContent);
+
         messageAdapter.notifyItemInserted(ChatData.messages.size() - 1);
         chatRecyclerView.scrollToPosition(ChatData.messages.size() - 1);
 
@@ -116,10 +127,15 @@ public class ChatFragment extends Fragment {
 
                         String cleanedReply = normalizeReply(assistantReply);
 
+                        // Lưu câu trả lời lên db
+                        try {
+                            appWriteService.createDocument("assistant", cleanedReply);
+                        } catch (AppwriteException e) {
+                            throw new RuntimeException(e);
+                        }
+
                         // Tạo tin nhắn của trợ lý ảo
-                        Message assistantMessage = new Message();
-                        assistantMessage.setContent(cleanedReply);
-                        assistantMessage.setRole("assistant");
+                        Message assistantMessage = new Message(cleanedReply, "assistant");
 
                         // Thêm vào danh sách tin nhắn và cập nhật UI
                         // Đảm bảo rằng việc cập nhật UI được thực hiện trên Main Thread

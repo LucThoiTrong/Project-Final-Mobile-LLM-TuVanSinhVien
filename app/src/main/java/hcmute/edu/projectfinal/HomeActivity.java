@@ -17,7 +17,6 @@ import hcmute.edu.projectfinal.fragment.MajorFragment;
 import hcmute.edu.projectfinal.fragment.TestFragment;
 
 public class HomeActivity extends AppCompatActivity {
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             if (item.getItemId() == R.id.nav_major) {

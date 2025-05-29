@@ -18,6 +18,7 @@ import hcmute.edu.projectfinal.adapter.ChatTabAdapter;
 public class ChatTabFragment extends Fragment {
     private int targetTabIndex = 0;
     private String majorTitle = null;
+    private ViewPager2 viewPager;
 
     @Nullable
     @Override
@@ -26,7 +27,7 @@ public class ChatTabFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat_tabs, container, false);
 
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
-        ViewPager2 viewPager = view.findViewById(R.id.viewPager);
+        viewPager = view.findViewById(R.id.viewPager);
 
         // Nhận dữ liệu từ Bundle
         if (getArguments() != null) {
@@ -47,5 +48,11 @@ public class ChatTabFragment extends Fragment {
         viewPager.setCurrentItem(targetTabIndex, false);
 
         return view;
+    }
+
+    public void switchToChatTab() {
+        if (viewPager != null) {
+            viewPager.setCurrentItem(0); // Tab 0 là Chat
+        }
     }
 }
