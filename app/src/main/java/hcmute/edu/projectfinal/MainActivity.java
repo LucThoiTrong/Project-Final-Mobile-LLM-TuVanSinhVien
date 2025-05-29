@@ -33,25 +33,27 @@ public class MainActivity extends AppCompatActivity {
         });
         appWriteService = AppWriteService.getInstance(this);
         Button googleSignInButton = findViewById(R.id.btnLogin);
-        googleSignInButton.setOnClickListener(v -> {
-            // Thực hiện đăng nhập bằng Google
-            appWriteService.createSession(MainActivity.this, new AppWriteService.AppWriteCallback() {
-                @Override
-                public void onSuccess(Object result) {
-                    // Khởi tạo các mảng lưu trữ
-                    ChatData.messagesJSONToSend = new JSONArray();
-                    ChatData.messages = new ArrayList<>();
-                    ChatData.chatHistory = new ArrayList<>();
+        googleSignInButton.setOnClickListener(v -> loginWithGoogle());
+    }
 
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show());
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                    finish();
-                }
+    private void loginWithGoogle() {
+        // Thực hiện đăng nhập bằng Google
+        appWriteService.createSession(MainActivity.this, new AppWriteService.AppWriteCallback() {
+            @Override
+            public void onSuccess(Object result) {
+                // Khởi tạo các mảng lưu trữ
+                ChatData.messagesJSONToSend = new JSONArray();
+                ChatData.messages = new ArrayList<>();
+                ChatData.chatHistory = new ArrayList<>();
 
-                @Override
-                public void onFailure(String error) {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Lỗi: " + error, Toast.LENGTH_SHORT).show());                }
-            });
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show());
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Lỗi: " + error, Toast.LENGTH_SHORT).show());                }
         });
     }
 }

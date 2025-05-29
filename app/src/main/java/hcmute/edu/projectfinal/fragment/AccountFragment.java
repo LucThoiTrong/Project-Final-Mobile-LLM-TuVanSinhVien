@@ -58,7 +58,6 @@ public class AccountFragment extends Fragment {
 
         // Xử lý nút đăng xuất
         btnLogout.setOnClickListener(v -> {
-            // TODO: Thêm logic đăng xuất (ví dụ: gọi account.deleteSession())
             Log.d("Logout", "Nút đăng xuất được nhấn");
             appWriteService.logOut(new AppWriteService.AppWriteCallback() {
                 @Override
@@ -72,7 +71,7 @@ public class AccountFragment extends Fragment {
 
                 @Override
                 public void onFailure(String error) {
-
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "Lỗi đăng xuất: " + error, Toast.LENGTH_SHORT).show());
                 }
             });
         });
