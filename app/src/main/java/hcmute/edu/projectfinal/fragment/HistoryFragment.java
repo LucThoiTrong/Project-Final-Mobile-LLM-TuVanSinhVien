@@ -51,8 +51,11 @@ public class HistoryFragment extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     private void getChatHistory() throws AppwriteException {
-        appWriteService.getChatHistory(() ->
-                requireActivity().runOnUiThread(() -> chatAdapter.notifyDataSetChanged()));
+        appWriteService.getChatHistory(() -> {
+            if (!chatHistory.isEmpty()) {
+                requireActivity().runOnUiThread(() -> chatAdapter.notifyDataSetChanged());
+            }
+        });
     }
 
     private void initViews(View view) {
