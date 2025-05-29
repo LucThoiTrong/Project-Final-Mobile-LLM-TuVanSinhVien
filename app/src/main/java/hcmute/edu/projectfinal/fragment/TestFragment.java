@@ -285,26 +285,30 @@ public class TestFragment extends Fragment {
 
     @NonNull
     private PieData getPieData(ArrayList<PieEntry> entries) {
-        ArrayList<Integer> colors = new ArrayList<>();
-        for (int color : ColorTemplate.MATERIAL_COLORS) { //
-            colors.add(color);
-        }
-        for (int color : ColorTemplate.VORDIPLOM_COLORS) { //
-            colors.add(color);
-        }
+        PieDataSet dataSet = getPieDataSet(entries);
 
-        PieDataSet dataSet = new PieDataSet(entries, ""); // Label for the dataset (can be empty)
-        dataSet.setColors(colors); //
-
-        // Quan trọng: Chỉ hiển thị giá trị (%), không hiển thị label trên slice
-        dataSet.setDrawValues(true); // Hiển thị giá trị (phần trăm)
-        // dataSet.setDrawEntryLabels(false); // Đã set ở setupPieChart chung cho cả chart
-
-        PieData data = new PieData(dataSet); //
-        data.setValueFormatter(new PercentFormatter(pieChartResult)); // Show percentage on slices
-        data.setValueTextSize(12f); //
-        data.setValueTextColor(Color.BLACK); //
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter(pieChartResult));
+        data.setValueTextSize(12f);
+        data.setValueTextColor(Color.BLACK);
         return data;
+    }
+
+    @NonNull
+    private static PieDataSet getPieDataSet(ArrayList<PieEntry> entries) {
+        ArrayList<Integer> colors = new ArrayList<>();
+        for (int color : ColorTemplate.MATERIAL_COLORS) {
+            colors.add(color);
+        }
+        for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(colors);
+
+        dataSet.setDrawValues(true);
+        return dataSet;
     }
 
 
