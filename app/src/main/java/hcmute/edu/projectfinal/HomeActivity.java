@@ -57,4 +57,9 @@ public class HomeActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_major);
         }
     }
+
+    public void updateBottomNavigationFocus(int navChat) {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(navChat);
+    }
 }

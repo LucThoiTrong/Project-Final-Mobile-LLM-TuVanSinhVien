@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.util.*;
 
+import hcmute.edu.projectfinal.HomeActivity;
 import hcmute.edu.projectfinal.R;
 import hcmute.edu.projectfinal.model.ChatData;
 import hcmute.edu.projectfinal.model.Question;
@@ -171,6 +172,12 @@ public class TestFragment extends Fragment {
             btnRequestConsultation.setVisibility(View.VISIBLE);
             btnRequestConsultation.setOnClickListener(v -> {
                 ChatFragment chatFragment = new ChatFragment();
+
+                // Cập nhật trạng thái focus của BottomNavigationView
+                if (requireActivity() instanceof HomeActivity) {
+                    ((HomeActivity) requireActivity()).updateBottomNavigationFocus(R.id.nav_chat);
+                }
+
                 Bundle bundle = new Bundle();
                 String majorTitleForChat = getString(topSpecs);
 

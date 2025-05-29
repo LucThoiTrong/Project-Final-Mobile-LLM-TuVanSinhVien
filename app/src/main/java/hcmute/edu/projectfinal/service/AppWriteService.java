@@ -335,6 +335,15 @@ public class AppWriteService {
 
     // Thực hiện xoá 1 lịch sử trò chuyện
     public void deleteConversationBySessionId(String sessionId, Runnable runnable) throws AppwriteException {
+        // Kiểm tra trường hợp xoá là xoá ngay cuộc trò chuyện đang chat
+        if(sessionId.equals(sharedPreferenceService.get("sessionId"))) {
+            // Khởi tạo lại dữ liệu cuộc hội thoại
+            messages.clear();
+            messagesJSONToSend = new JSONArray();
+            // Tạo mới session ID
+            sharedPreferenceService.put("sessionId", ID.Companion.unique(20));
+        }
+
         databases.listDocuments(
                 "683796d0002a4e950d37", // databaseId
                 "68379e6400202e59e779", // collectionId
@@ -350,7 +359,9 @@ public class AppWriteService {
                         int total = documents.size();
                         int[] counter = {0};
 
-                        documents.stream().map(Document::getId).forEach(documentId -> databases.deleteDocument(
+                        documents.stream()
+                                .map(Document::getId)
+                                .forEach(documentId -> databases.deleteDocument(
                                 "683796d0002a4e950d37", // databaseId
                                 "68379e6400202e59e779", // collectionId
                                 documentId,
