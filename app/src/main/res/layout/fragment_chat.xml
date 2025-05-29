@@ -4,57 +4,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@drawable/background_main_gradient"
+    android:padding="16dp">
 
-    <!-- RecyclerView để hiển thị lịch sử trò chuyện -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:paddingVertical="8dp"
         android:clipToPadding="false"
         android:scrollbars="vertical"
-        android:background="@drawable/background_main_gradient"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/messageInputLayout"
+        app:layout_constraintBottom_toTopOf="@id/messageInputCardView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"/>
 
-    <!-- Layout chứa EditText và nút gửi -->
-    <LinearLayout
-        android:id="@+id/messageInputLayout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/messageInputCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"  app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- EditText để nhập tin nhắn -->
-        <EditText
-            android:id="@+id/messageEditText"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/messageInputLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Nhập tin nhắn..."
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:inputType="textMultiLine"
-            android:maxLines="4" />
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingVertical="8dp"
+            android:gravity="center_vertical">
 
-        <!-- Nút gửi tin nhắn -->
-        <ImageButton
-            android:id="@+id/sendButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Gửi tin nhắn"
-            android:src="@drawable/ic_send"
-            app:tint="@color/primary_blue" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Nhập tin nhắn..."
+                android:background="@android:color/transparent"
+                android:paddingVertical="10dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:scrollHorizontally="false" />
+
+            <ImageButton
+                android:id="@+id/sendButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Gửi tin nhắn"
+                android:src="@drawable/ic_send"
+                app:tint="#2196F3" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
