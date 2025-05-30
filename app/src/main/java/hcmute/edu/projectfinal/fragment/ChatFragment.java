@@ -133,7 +133,7 @@ public class ChatFragment extends Fragment {
             stopTypingAnimation();
         }
 
-        // Tạo và thêm tin nhắn "đang gõ..." mới
+        // Tạo và thêm tin nhắn "đang phản hồi..." mới
         currentTypingMessage = new Message(BASE_TYPING_MESSAGE + ".", "assistant");
         ChatData.messages.add(currentTypingMessage);
         int newMessageIndex = ChatData.messages.size() - 1;

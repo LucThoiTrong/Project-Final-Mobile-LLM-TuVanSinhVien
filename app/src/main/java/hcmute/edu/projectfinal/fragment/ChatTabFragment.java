@@ -54,10 +54,4 @@ public class ChatTabFragment extends Fragment {
 
         return view;
     }
-
-    public void switchToChatTab() {
-        if (viewPager != null) {
-            viewPager.setCurrentItem(0); // Tab 0 là Chat
-        }
-    }
 }
