@@ -80,7 +80,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             if ("user".equalsIgnoreCase(message.getRole())) {
                 messageTextView.setBackgroundResource(R.drawable.message_user_background);
                 messageTextView.setTextColor(ContextCompat.getColor(context, R.color.user_message_text_color));
-                messageIcon.setImageResource(R.drawable.ic_user); // Đảm bảo bạn có icon R.drawable.ic_user
+                messageIcon.setImageResource(R.drawable.img_user);
 
                 // 1. Icon to the far right of the parent
                 constraintSet.connect(R.id.messageIcon, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
@@ -97,7 +97,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             } else if ("assistant".equalsIgnoreCase(message.getRole())) {
                 messageTextView.setBackgroundResource(R.drawable.message_bot_background);
                 messageTextView.setTextColor(ContextCompat.getColor(context, R.color.assistant_message_text_color));
-                messageIcon.setImageResource(R.drawable.ic_bot); // Đảm bảo bạn có icon R.drawable.ic_bot
+                messageIcon.setImageResource(R.drawable.img_bot);
 
                 // Assistant: [Icon] [Text] <---- Aligned to the Parent LEFT
                 // 1. Icon to the far left of the parent
